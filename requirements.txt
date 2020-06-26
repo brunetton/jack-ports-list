@@ -1,0 +1,2 @@
+jackclient-python
+itertoolz
