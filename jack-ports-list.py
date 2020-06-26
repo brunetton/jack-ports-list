@@ -30,6 +30,7 @@ client = jack.Client('')
 ports_list = client.get_ports()
 
 # Filter
+# TODO: use get_ports() function
 filter_str = None  # Used for display
 if args["--audio"]:
     ports_list = filter(lambda p: p.is_audio, ports_list)
