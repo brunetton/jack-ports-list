@@ -11,7 +11,7 @@ Options:
     --midi      only list midi
     --inputs    only list inputs
     --outputs   only list outputs
-    -n          make output grepeable (no output for humans)
+    -n          make output grepeable (remove all output made for humans)
 """
 
 from pathlib import Path
@@ -44,14 +44,16 @@ if args["--outputs"]:
     ports_list = filter(lambda p: p.is_output, ports_list)
 
 # Display
-groups = itertoolz.groupby(lambda e: e.is_input, ports_list).items()
-for is_input, group in groups:
+groups = itertoolz.groupby(lambda e: e.is_input, ports_list)
+for is_input in [True, False]:
+    # Iter inputs then outputs
+    # current_group in (groups[True], groups[False]):
+    current_group = groups[is_input]
     if not args['-n']:
         print("** " + ('{} '.format(filter_str) if filter_str else '') + ("INPUTS" if is_input else "OUTPUTS"))
-    # print('{} '.format(filter_str) if filter_str else '')
-    for port in group:
+    for port in current_group:
         print(port.name)
-    if len(groups) > 1 and not args['-n']:
+    if len(current_group) > 1 and not args['-n']:
         print()
 
 client.close()
