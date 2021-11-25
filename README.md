@@ -40,6 +40,8 @@ a2j:Midi Through [14] (playback): Midi Through Port-0
 a2j:openstage [131] (playback): midi_in
 ```
 
+Use `--help` option to list all available options.
+
 ## Installation
 
 ```
